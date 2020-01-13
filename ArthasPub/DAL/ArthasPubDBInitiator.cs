@@ -8,7 +8,7 @@ using ArthasPub.Models;
 
 namespace ArthasPub.DAL
 {
-    public class ArthasPubDBInitiator : System.Data.Entity.DropCreateDatabaseAlways<ArthasPubDB>
+    public class ArthasPubDBInitiator : System.Data.Entity.DropCreateDatabaseIfModelChanges<ArthasPubDB>
     {
         protected override void Seed(ArthasPubDB context)
         {
