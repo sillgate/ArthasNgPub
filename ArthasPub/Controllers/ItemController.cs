@@ -11,6 +11,7 @@ using ArthasPub.Models;
 
 namespace ArthasPub.Controllers
 {
+    [Authorize(Roles = "Member")]
     public class ItemController : Controller
     {
         private ArthasPubDB db = new ArthasPubDB();

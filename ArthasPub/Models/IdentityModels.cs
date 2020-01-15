@@ -22,7 +22,7 @@ namespace ArthasPub.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext() 
-            : base("ArthasPubDB", throwIfV1Schema: false)
+            : base("ArthasPubUser", throwIfV1Schema: false)
         {
         }
 
