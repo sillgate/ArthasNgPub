@@ -152,7 +152,7 @@ namespace ArthasPub.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Something = model.Something };// UserRole = "User" };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -165,6 +165,53 @@ namespace ArthasPub.Controllers
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
                     var RoleName = "Member";
                     //var RoleName = "Admin";
+                    if (HttpContext.GetOwinContext().Get<ApplicationRoleManager>().RoleExists(RoleName) == false)
+                    {
+                        //create role if not exist
+                        var role = new IdentityRole(RoleName);
+                        await HttpContext.GetOwinContext().Get<ApplicationRoleManager>().CreateAsync(role);
+                    }
+                    //Add user to role
+                    await UserManager.AddToRoleAsync(user.Id, RoleName);
+                    return RedirectToAction("Index", "Home");
+                }
+                AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+        //Register admin function
+        // GET: /Account/Register
+        [AllowAnonymous]
+        public ActionResult RegisterAdmin()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Account/Register
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterAdmin(RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    //var RoleName = "Member";
+                    var RoleName = "Admin";
                     if (HttpContext.GetOwinContext().Get<ApplicationRoleManager>().RoleExists(RoleName) == false)
                     {
                         //create role if not exist
