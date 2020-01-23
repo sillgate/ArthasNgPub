@@ -16,7 +16,7 @@ namespace ArthasPub.Models
         public byte[] InternalImage { get; set; }
         public bool Visible { get; set; }
 
-        public virtual List<CartItem> CartItem { get; set; }
+        //public virtual List<CartItem> CartItem { get; set; }
 
     }
 }
