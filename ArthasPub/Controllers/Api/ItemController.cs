@@ -15,7 +15,7 @@ namespace ArthasPub.Controllers.Api
 {
     public class ItemController : ApiController
     {
-        private ArthasPubDB db = new ArthasPubDB();
+       private ArthasPubDB db = new ArthasPubDB();
 
         // GET: api/Item
         public IQueryable<Item> GetItems()
@@ -72,60 +72,69 @@ namespace ArthasPub.Controllers.Api
         }
 
         // POST: api/Item
+
+            
         [ResponseType(typeof(Item))]
-       /* public IHttpActionResult PostItem(Item item)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        /*
+        public IHttpActionResult PostItem(Item item)
+         {
 
-            db.Items.Add(item);
-            db.SaveChanges();
+            db.Items = 
+             if (!ModelState.IsValid)
+             {
+                 return BadRequest(ModelState);
+             }
 
-            return CreatedAtRoute("DefaultApi", new { id = item.ItemId }, item);
-        }*/
-        public IHttpActionResult PostItem(Models.Item item)
+             db.Items.Add(item);
+             db.SaveChanges();
+
+             return CreatedAtRoute("DefaultApi", new { id = item.ItemId }, item);
+         }
+        */
+        
+         public IHttpActionResult PostItem(Models.Item item)
+         {
+             if (!ModelState.IsValid)
+                 return BadRequest("Invalid data.");
+
+             using (var ctx = new ArthasPubDB())
+             {
+                 ctx.Items.Add(new Item()
+                 {
+                     Name = item.Name,
+                     Description = item.Description,
+                     Price = item.Price,
+                     Cost = item.Cost,
+                     ItemImageUrl = item.ItemImageUrl,
+                     InternalImage= item.InternalImage,
+                     Visible = item.Visible
+                 });
+
+                 ctx.SaveChanges();
+             }
+
+             return Ok();
+         }
+         
+
+
+        // DELETE: api/Item/5
+        public IHttpActionResult Delete(int id)
         {
-            if (!ModelState.IsValid)
-                return BadRequest("Invalid data.");
+            if (id <= 0)
+                return BadRequest("Not a valid student id");
 
             using (var ctx = new ArthasPubDB())
             {
-                ctx.Items.Add(new Item()
-                {
-                    ItemId = item.ItemId,
-                    Name = item.Name,
-                    Description = item.Description,
-                    Price = item.Price,
-                    Cost = item.Cost,
-                    ItemImageUrl = item.ItemImageUrl,
-                    InternalImage= item.InternalImage,
-                    Visible = item.Visible
-                });
+                var student = ctx.Items
+                    .Where(s => s.ItemId == id)
+                    .FirstOrDefault();
 
+                ctx.Entry(student).State = System.Data.Entity.EntityState.Deleted;
                 ctx.SaveChanges();
             }
 
             return Ok();
-        }
-
-
-
-        // DELETE: api/Item/5
-        [ResponseType(typeof(Item))]
-        public IHttpActionResult DeleteItem(int id)
-        {
-            Item item = db.Items.Find(id);
-            if (item == null)
-            {
-                return NotFound();
-            }
-
-            db.Items.Remove(item);
-            db.SaveChanges();
-
-            return Ok(item);
         }
 
         protected override void Dispose(bool disposing)

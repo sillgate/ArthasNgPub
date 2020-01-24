@@ -48,7 +48,7 @@ namespace ArthasPub.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ItemId,Name,Description,Price,Cost,ItemImageUrl,InternalImage,Visible")] Item item)
+        public ActionResult Create([Bind(Include = "Name,Description,Price,Cost,ItemImageUrl,InternalImage,Visible")] Item item)
         {
             if (ModelState.IsValid)
             {
