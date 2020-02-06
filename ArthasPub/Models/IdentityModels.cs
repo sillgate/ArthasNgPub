@@ -9,7 +9,6 @@ namespace ArthasPub.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
-        public string Something { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -22,7 +21,7 @@ namespace ArthasPub.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext() 
-            : base("ArthasPubUser", throwIfV1Schema: false)
+            : base("ArthasPubDB", throwIfV1Schema: false)
         {
         }
 
