@@ -23,8 +23,8 @@ namespace ArthasPub.DAL
             context.SaveChanges();
             var orders = new List<Order>
             {
-                new Order{OrderId=1, UserId=1111, Total=7.8m, CreateDate=DateTime.Parse("2020-01-09")},
-                new Order{OrderId=2, UserId=2222, Total=4.9m, CreateDate=DateTime.Parse("2020-01-09")}
+                new Order{OrderId=1, UserId="1111", Total=7.8m, CreateDate=DateTime.Parse("2020-01-09")},
+                new Order{OrderId=2, UserId="2222", Total=4.9m, CreateDate=DateTime.Parse("2020-01-09")}
             };
             orders.ForEach(s => context.Orders.Add(s));
             context.SaveChanges();

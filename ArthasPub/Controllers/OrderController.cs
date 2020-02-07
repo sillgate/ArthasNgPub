@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using ArthasPub.DAL;
 using ArthasPub.Models;
+using Microsoft.AspNet.Identity;
 
 namespace ArthasPub.Controllers
 {
@@ -51,6 +52,9 @@ namespace ArthasPub.Controllers
         {
             if (ModelState.IsValid)
             {
+                order.UserId = User.Identity.GetUserId();
+                //order.UserId = User.Identity.GetUserId();
+
                 db.Orders.Add(order);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -79,10 +83,11 @@ namespace ArthasPub.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "OrderId,UserId,Total,CreateDate")] Order order)
+        public ActionResult Edit([Bind(Include = "UserId,Total,CreateDate")] Order order)
         {
             if (ModelState.IsValid)
             {
+                order.UserId = User.Identity.GetUserId();
                 db.Entry(order).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

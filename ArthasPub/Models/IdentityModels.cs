@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using ArthasPub.DAL;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -18,16 +19,30 @@ namespace ArthasPub.Models
         }
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
-    {
-        public ApplicationDbContext() 
-            : base("ArthasPubDB", throwIfV1Schema: false)
-        {
-        }
+    //public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    //{
+    //    public ApplicationDbContext() 
+    //        : base("ArthasPubDB", throwIfV1Schema: false)
+    //    {
+    //    }
 
-        public static ApplicationDbContext Create()
-        {
-            return new ApplicationDbContext();
-        }
-    }
+        //public static ApplicationDbContext Create()
+        //{
+        //    return new ApplicationDbContext();
+        //}
+
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //{
+            
+        //    //modelBuilder.Entity<ArthasPubDB>()
+        //    //    .HasRequired(m => m.User)
+        //    //    .WithOptional(m => m.Order)
+        //    //    .Map(m => { m.MapKey("UserId"); });
+            
+        //    base.OnModelCreating(modelBuilder);
+
+        //    //sql output log
+        //    //Database.Log = s => Debug.Write(s);
+        //}
+    //}
 }

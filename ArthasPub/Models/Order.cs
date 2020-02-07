@@ -10,16 +10,15 @@ namespace ArthasPub.Models
     public class Order
     {
         [Key]
-        public int OrderId { get; set; }
-        [StringLength(128)]
-        public int UserId { get; set; } 
+        public int OrderId { get; set; }      
         public int CartId { get; set; }
         public decimal Total { get; set; }
         public DateTime CreateDate { get; set; }
+        [StringLength(128)]
+        public String UserId { get; set; }
 
         [ForeignKey("UserId")]
         public virtual ApplicationUser User { get; set; }
-        public virtual List<CartItem> CartItem { get; set; }
     }
 
 }
