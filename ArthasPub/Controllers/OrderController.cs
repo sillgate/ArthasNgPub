@@ -19,7 +19,14 @@ namespace ArthasPub.Controllers
         // GET: Order
         public ActionResult Index()
         {
-            return View(db.Orders.ToList());
+            if (User.IsInRole("Admin"))
+            {
+                return View(db.Orders.ToList());
+                    }
+            else
+            {
+                return View(db.Orders.ToList().Where(i => i.UserId == User.Identity.GetUserId()));
+            }
         }
 
         // GET: Order/Details/5

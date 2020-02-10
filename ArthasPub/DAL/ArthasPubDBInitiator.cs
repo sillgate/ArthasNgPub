@@ -14,9 +14,9 @@ namespace ArthasPub.DAL
         {
             var items = new List<Item>
             {
-                new Item{ItemId=1, Name="Beer", Description="Beer", Price=1.9m, Visible=true},
-                new Item{ItemId=2, Name="Red Wine", Description="Red Wine", Price=5.9m, Visible=true},
-                new Item{ItemId=3, Name="White Wine", Description="White Wine", Price=4.9m, Visible=true}
+                new Item{ItemId=1, Name="Beer", Description="Beer", Price=1.9m, Disable=true},
+                new Item{ItemId=2, Name="Red Wine", Description="Red Wine", Price=5.9m, Disable=true},
+                new Item{ItemId=3, Name="White Wine", Description="White Wine", Price=4.9m, Disable=true}
             };
 
             items.ForEach(s => context.Items.Add(s));

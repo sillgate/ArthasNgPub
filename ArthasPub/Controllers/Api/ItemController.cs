@@ -107,7 +107,7 @@ namespace ArthasPub.Controllers.Api
                      Cost = item.Cost,
                      ItemImageUrl = item.ItemImageUrl,
                      InternalImage= item.InternalImage,
-                     Visible = item.Visible
+                     Disable = item.Disable
                  });
 
                  ctx.SaveChanges();

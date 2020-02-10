@@ -7,13 +7,13 @@ namespace ArthasPub.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class remodel : IMigrationMetadata
+    public sealed partial class cancelorder : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(remodel));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(cancelorder));
         
         string IMigrationMetadata.Id
         {
-            get { return "202002071708160_remodel"; }
+            get { return "202002101627090_cancelorder"; }
         }
         
         string IMigrationMetadata.Source

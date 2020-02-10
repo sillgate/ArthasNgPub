@@ -9,7 +9,6 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-
 <table class="table">
     <tr>
         <th>
@@ -31,7 +30,7 @@
             @Html.DisplayNameFor(model => model.InternalImage)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Disable)
+            @Html.DisplayNameFor(model => model.Visible)
         </th>
         <th></th>
     </tr>
@@ -57,7 +56,7 @@
             @Html.DisplayFor(modelItem => item.InternalImage)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Disable)
+            @Html.DisplayFor(modelItem => item.Visible)
         </td>
         <td>
             @Html.ActionLink("Add", "Add", new { id=item.ItemId }) |

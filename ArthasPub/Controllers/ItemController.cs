@@ -117,6 +117,29 @@ namespace ArthasPub.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult Add(int? Id)
+        {
+
+            Item i = db.Items.Where(x => x.ItemId == Id).SingleOrDefault();
+            return View(i);
+        }
+        [HttpPost, ActionName("Add")]
+        public ActionResult Add(Item item, string qty, int Id)
+        {
+            Item p = db.Items.Where(x => x.ItemId == Id).SingleOrDefault();
+
+            CartItem cart = new CartItem();
+            cart.ItemId = p.ItemId;
+            cart.Price = p.Price;
+            cart.Quantity = Convert.ToInt32(qty);
+            decimal total = cart.Price * cart.Quantity;
+            db.CartItems.Add(cart);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

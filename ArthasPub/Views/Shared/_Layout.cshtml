@@ -39,16 +39,12 @@
 
                     @if (Request.IsAuthenticated && (User.IsInRole("Member") | User.IsInRole("Admin")))
                     {
-                        <li>@Html.ActionLink("About", "About", "Home")</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                        <li>@Html.ActionLink("Item", "Index", "Item")</li>
+                        <li>@Html.ActionLink("Menu", "Index", "Item")</li>
+                        <li>@Html.ActionLink("Cart", "Index", "CartItem")</li>
+                        <li>@Html.ActionLink("Order", "Index", "Order")</li>
                     }
-
-                    @if (Request.IsAuthenticated && User.IsInRole("Admin"))
-                    {
-                        <li>@Html.ActionLink("Sale", "Index", "Sale")</li>
-                        <li>@Html.ActionLink("Stock", "Index", "Stock")</li>
-                    }
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

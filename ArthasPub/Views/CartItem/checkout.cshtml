@@ -1,0 +1,86 @@
+﻿@model List<ArthasPub.Models.CartItem>
+@using Microsoft.AspNet.Identity
+
+@{
+    ViewBag.Title = "Checkout";
+}
+
+<h2>Checkout for</h2>
+<h1>
+    @User.Identity.GetUserName()
+</h1>
+
+
+@using (@Html.BeginForm())
+{
+    decimal bill = 0;
+
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>
+                nam
+            </th>
+            <th>
+                des
+            </th>
+            <th>
+                pri
+            </th>
+            <th>
+                qty
+            </th>
+            <th>
+                ttl
+            </th>
+            <th></th>
+        </tr>
+
+        @for (var i = 0; i < Model.Count; i++)
+        {
+            bill += Model[i].Total;
+            <tr>
+                <td>
+                    @Html.HiddenFor(modelItem => Model[i].CartItemId)
+                </td>
+                <td>
+                    @Html.HiddenFor(modelItem => Model[i].Item.Name)
+                    @Html.DisplayFor(modelItem => Model[i].Item.Name)
+                </td>
+                <td>
+                    @Html.HiddenFor(modelItem => Model[i].Item.Description)
+                    @Html.DisplayFor(modelItem => Model[i].Item.Description)
+                </td>
+                <td>
+                    @Html.HiddenFor(modelItem => Model[i].Price)
+                    @Html.DisplayFor(modelItem => Model[i].Price)
+                </td>
+                <td>
+                    @Html.EditorFor(modelItem => Model[i].Quantity, new { @Value = Model[i].Quantity })
+                    @Html.ValidationMessageFor(modelItem => Model[i].Quantity, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model[i].Total)
+
+                </td>
+            </tr>
+        }
+
+
+        <tfoot>
+            <tr>
+                <td colspan="5"></td>
+                <td>@bill</td>
+
+            </tr>
+        </tfoot>
+
+    </table>
+    <div class="form-actions no-color">
+        <input type="submit" value="Checkout" class="btn btn-default" />
+    </div>
+
+    @section Scripts{
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+}

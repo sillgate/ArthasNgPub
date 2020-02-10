@@ -14,9 +14,6 @@ namespace ArthasPub.Models
         public decimal Cost { get; set; }
         public string ItemImageUrl { get; set; }
         public byte[] InternalImage { get; set; }
-        public bool Visible { get; set; }
-
-        //public virtual IList<CartItem> CartItem { get; set; }
-
+        public bool Disable { get; set; }
     }
 }
