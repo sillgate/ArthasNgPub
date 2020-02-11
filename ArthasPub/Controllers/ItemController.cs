@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using ArthasPub.DAL;
 using ArthasPub.Models;
+using Microsoft.AspNet.Identity;
 
 namespace ArthasPub.Controllers
 {
@@ -132,6 +133,7 @@ namespace ArthasPub.Controllers
             cart.ItemId = p.ItemId;
             cart.Price = p.Price;
             cart.Quantity = Convert.ToInt32(qty);
+            cart.UserId = User.Identity.GetUserId();
             decimal total = cart.Price * cart.Quantity;
             db.CartItems.Add(cart);
             db.SaveChanges();

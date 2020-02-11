@@ -5,7 +5,8 @@
     ViewBag.Title = "Cart";
 }
 
-<h2>Cart for @User.Identity.GetUserName()</h2>
+<h2>Ordered Item for</h2>
+<h4>@User.Identity.GetUserName()</h4>
 
 
 @using (@Html.BeginForm())
@@ -16,19 +17,16 @@
         <tr>
             <th></th>
             <th>
-                nam
+                Name
             </th>
             <th>
-                des
+                Price
             </th>
             <th>
-                pri
+                Quantity
             </th>
             <th>
-                qty
-            </th>
-            <th>
-                ttl
+                Total
             </th>
             <th></th>
         </tr>
@@ -36,46 +34,43 @@
         @for (var i = 0; i < Model.Count; i++)
         {
             bill += Model[i].Total;
-    <tr>
-        <td>
-            @Html.HiddenFor(modelItem => Model[i].CartItemId)
-        </td>
-        <td>
-            @Html.HiddenFor(modelItem => Model[i].Item.Name)
-            @Html.DisplayFor(modelItem => Model[i].Item.Name)
-        </td>
-        <td>
-            @Html.HiddenFor(modelItem => Model[i].Item.Description)
-            @Html.DisplayFor(modelItem => Model[i].Item.Description)
-        </td>
-        <td>
-            @Html.HiddenFor(modelItem => Model[i].Price)
-            @Html.DisplayFor(modelItem => Model[i].Price)
-        </td>
-        <td>
-            @Html.EditorFor(modelItem => Model[i].Quantity, new { @Value = Model[i].Quantity })
-            @Html.ValidationMessageFor(modelItem => Model[i].Quantity, "", new { @class = "text-danger" })
-        </td>
-        @if (Model[i].Cancel == false)
-        {
-            <td>
-                @Html.EditorFor(modelItem => Model[i].Cancel, new { @Value = Model[i].Cancel })
-                @Html.ValidationMessageFor(modelItem => Model[i].Cancel, "", new { @class = "text-danger" })
-            </td>
-        }
-        @if (Model[i].Cancel == true)
-        {
-            <td>
-                @Html.EditorFor(modelItem => Model[i].Cancel, new { @Value = Model[i].Cancel })
-                @Html.DisplayFor(modelItem => Model[i].Cancel, "", new { @class = "text-danger" })
-            </td>
-}
+            <tr>
+                <td>
+                    <img src="@Url.Content(Model[i].Item.ItemImageUrl)" style="width:100px">
+                </td>
+                <td>
+                    @Html.HiddenFor(modelItem => Model[i].CartItemId)
+                    @Html.HiddenFor(modelItem => Model[i].Item.Name)
+                    @Html.DisplayFor(modelItem => Model[i].Item.Name)
+                </td>
+                <td>
+                    @Html.HiddenFor(modelItem => Model[i].Price)
+                    @Html.DisplayFor(modelItem => Model[i].Price)
+                </td>
+                <td>
+                    @Html.HiddenFor(modelItem => Model[i].Quantity)
+                    @Html.DisplayFor(modelItem => Model[i].Quantity)
+                </td>
 
-        <td>
-            @Html.DisplayFor(modelItem => Model[i].Total)
+                <td>
+                    @Html.DisplayFor(modelItem => Model[i].Total)
 
-        </td>
-    </tr>
+                </td>
+                @if (Model[i].Cancel == false)
+                {
+            <td>
+                @Html.ActionLink("Cancel", "Cancel", new { id = Model[i].CartItemId }, new { @class = "btn btn-primary", @style = "color:white", @role = "button" })
+            </td>
+                }
+                @if (Model[i].Cancel == true)
+                {
+                    <td>
+                        <button class="btn-danger">Cancelled</button>
+                    </td>
+                }
+
+
+            </tr>
         }
 
 
