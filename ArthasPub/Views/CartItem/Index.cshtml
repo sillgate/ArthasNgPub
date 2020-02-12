@@ -5,7 +5,7 @@
     ViewBag.Title = "Cart";
 }
 
-<h2>Ordered Item for</h2>
+<h2>Ordered item:</h2>
 <h4>@User.Identity.GetUserName()</h4>
 
 
@@ -36,7 +36,7 @@
             bill += Model[i].Total;
             <tr>
                 <td>
-                    <img src="@Url.Content(Model[i].Item.ItemImageUrl)" style="width:100px">
+                    <img src="data:image;base64,@System.Convert.ToBase64String(Model[i].Item.InternalImage)" style="width:125px" />
                 </td>
                 <td>
                     @Html.HiddenFor(modelItem => Model[i].CartItemId)
@@ -65,7 +65,7 @@
                 @if (Model[i].Cancel == true)
                 {
                     <td>
-                        <button class="btn-danger">Cancelled</button>
+                        <button class="btn btn-danger">Cancelled</button>
                     </td>
                 }
 
@@ -76,17 +76,18 @@
 
         <tfoot>
             <tr>
-                <td colspan="5"></td>
+                <td colspan="3"></td>
+                <td>Sub Total:</td>
                 <td>@bill</td>
 
             </tr>
         </tfoot>
 
     </table>
-    <div class="form-actions no-color">
+    @*<div class="form-actions no-color">
         @Html.ActionLink("Checkout", "Checkout", null, new { @class = "btn btn-primary", @style = "color:white", @role = "button" })
         <input type="submit" value="Update" class="btn btn-default" />
-    </div>
+    </div>*@
 
     @section Scripts{
         @Scripts.Render("~/bundles/jqueryval")

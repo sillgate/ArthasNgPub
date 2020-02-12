@@ -1,47 +1,51 @@
 ﻿@model ArthasPub.Models.CartItem
 
-    @{
-        ViewBag.Title = "Cancel";
-    }
+@{
+    ViewBag.Title = "Cancel";
+}
 
-    <h2>Cancel</h2>
 
-    <h3>Are you sure you want to cancel this item?</h3>
-    <div>
-        <h4>Item</h4>
-        <hr />
+<h3>Are you sure you want to cancel this item?</h3>
+<div>
+    <div class="container">
         <dl class="dl-horizontal">
             <dt>
-                <img src="@Url.Content(Model.Item.ItemImageUrl)" style="width:100px">
+                <img src="data:image;base64,@System.Convert.ToBase64String(Model.Item.InternalImage)" style="width:125px" />
             </dt>
             <dt>
+                Name:
                 @Html.HiddenFor(modelItem => Model.CartItemId)
                 @Html.HiddenFor(modelItem => Model.Item.Name)
                 @Html.DisplayFor(modelItem => Model.Item.Name)
             </dt>
             <dt>
+                Price:
                 @Html.HiddenFor(modelItem => Model.Price)
                 @Html.DisplayFor(modelItem => Model.Price)
             </dt>
             <dt>
+                Quantity:
                 @Html.HiddenFor(modelItem => Model.Quantity)
                 @Html.DisplayFor(modelItem => Model.Quantity)
             </dt>
 
             <dt>
+                Total:
                 @Html.DisplayFor(modelItem => Model.Total)
-
             </dt>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <dt>
+                    <input type="submit" value="Cancel" class="btn btn-danger" />
+                    
+                </dt>
+                <dt>
+                    @Html.ActionLink("Back to List", "Index")
+                </dt>
+            }
 
         </dl>
-
-        @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
-
-            <div class="form-actions no-color">
-                <input type="submit" value="Delete" class="btn btn-default" /> |
-                @Html.ActionLink("Back to List", "Index")
-            </div>
-        }
     </div>
+
+</div>

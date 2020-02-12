@@ -1,59 +1,48 @@
 ﻿@model IEnumerable<ArthasPub.Models.Item>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <style>
-* {
-  box-sizing: border-box;
-}
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-body {
-  background-color: #f1f1f1;
-  padding: 20px;
-  font-family: Arial;
-}
 
-/* Center website */
-.main {
-  max-width: 1000px;
-  margin: auto;
-}
 
-h1 {
-  font-size: 50px;
-  word-break: break-all;
-}
+        /* Center website */
+        .main {
+            max-width: 1000px;
+            margin: auto;
+        }
 
-.row {
-  margin: 8px -16px;
-}
+        h1 {
+            font-size: 50px;
+            word-break: break-all;
+        }
 
-/* Add padding BETWEEN each column */
-.row,
-.row > .column {
-  padding: 8px;
-}
+        .row {
+            margin: 8px -16px;
+        }
 
-/* Create four equal columns that floats next to each other */
-.column {
-  float: left;
-  width: 25%;
-}
+            /* Add padding BETWEEN each column */
+            .row,
+            .row > .column {
+                padding: 8px;
+            }
 
-/* Clear floats after rows */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
+        /* Create four equal columns that floats next to each other */
+        .column {
+            float: left;
+            width: 25%;
+        }
 
-/* Content */
-.content {
-  background-color: white;
-  padding: 10px;
-}
-
-        </style>
-    </head>
+        /* Clear floats after rows */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+    </style>
+</head>
 
 
 @{
@@ -113,7 +102,7 @@ h1 {
                         @Html.DisplayFor(modelItem => item.ItemImageUrl)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.InternalImage)
+                        <img src='@Url.Action("show", "image", new { modelItem = item.InternalImage })' />
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Disable)
@@ -135,14 +124,14 @@ h1 {
         <div class="row">
             @foreach (var item in Model)
             {
-            <div class="column">
-                <div class="content">
-                    <img src="@Url.Content(item.ItemImageUrl)" style="width:100%">
-                    <h3>@Html.DisplayFor(modelItem => item.Name)</h3>
-                    <p>$ @Html.DisplayFor(modelItem => item.Price)</p>
-                    <p>@Html.ActionLink("Order", "Add", new { id = item.ItemId }) </p>
+                <div class="column">
+                    <div class="content">
+                        <img src="@Url.Content(item.ItemImageUrl)" style="width:100%">
+                        <h3>@Html.DisplayFor(modelItem => item.Name)</h3>
+                        <p>$ @Html.DisplayFor(modelItem => item.Price)</p>
+                        <p>@Html.ActionLink("Order", "Add", new { id = item.ItemId }) </p>
+                    </div>
                 </div>
-            </div>
             }
         </div>
     }

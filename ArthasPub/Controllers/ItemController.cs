@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -20,8 +21,29 @@ namespace ArthasPub.Controllers
         // GET: Item
         public ActionResult Index()
         {
-            return View(db.Items.ToList());
+            return View(useritemview());
         }
+
+
+        //[HttpPost]
+        //public ActionResult Index(HttpPostedFileBase postedFile)
+        //{
+        //    byte[] bytes;
+        //    using (BinaryReader br = new BinaryReader(postedFile.InputStream))
+        //    {
+        //        bytes = br.ReadBytes(postedFile.ContentLength);
+        //    }
+        //    FilesEntities entities = new FilesEntities();
+        //    entities.tblFiles.Add(new tblFile
+        //    {
+        //        Name = Path.GetFileName(postedFile.FileName),
+        //        ContentType = postedFile.ContentType,
+        //        Data = bytes
+        //    });
+        //    entities.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
+
 
         // GET: Item/Details/5
         public ActionResult Details(int? id)
@@ -35,7 +57,7 @@ namespace ArthasPub.Controllers
             {
                 return HttpNotFound();
             }
-            return View(item);
+            return View(useritemview());
         }
 
         // GET: Item/Create
@@ -58,7 +80,7 @@ namespace ArthasPub.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(item);
+            return View(useritemview());
         }
 
         // GET: Item/Edit/5
@@ -81,16 +103,32 @@ namespace ArthasPub.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ItemId,Name,Description,Price,Cost,ItemImageUrl,InternalImage,Visible")] Item item)
+        public ActionResult Edit([Bind(Include = "ItemId,Name,Description,Price,Cost,ItemImageUrl,InternalImage,Upload,Disible")] Item item)
         {
             if (ModelState.IsValid)
             {
+                if(Request.Files.Count > 0)
+                {
+                    HttpPostedFileBase file = Request.Files[0];
+                    if (file.ContentLength > 0)
+                    {
+                        String fileName = item.ItemId +"jpg";
+                        item.ItemImageUrl = Path.Combine(
+                            Server.MapPath("~/App_Data/uploads"), fileName);
+                        file.SaveAs (item.ItemImageUrl);
+                    }
+                }
+                byte[] uploadedFile = new byte[item.Upload.InputStream.Length];
+                item.Upload.InputStream.Read(uploadedFile, 0, uploadedFile.Length);
+                item.InternalImage = uploadedFile;
                 db.Entry(item).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(item);
         }
+
+
 
         // GET: Item/Delete/5
         public ActionResult Delete(int? id)
@@ -104,7 +142,7 @@ namespace ArthasPub.Controllers
             {
                 return HttpNotFound();
             }
-            return View(item);
+            return View(useritemview());
         }
 
         // POST: Item/Delete/5
@@ -149,6 +187,12 @@ namespace ArthasPub.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private List<Item> useritemview()
+        {
+            var c = db.Items.ToList().Where(i => i.Disable == false).ToList();
+            return c;
         }
     }
 }

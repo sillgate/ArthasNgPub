@@ -50,7 +50,6 @@ namespace ArthasPub.Models
     {
         [Required]
         [Display(Name = "Login ID")]
-        [EmailAddress]
         public string Email { get; set; }
 
         [Required]
@@ -65,12 +64,11 @@ namespace ArthasPub.Models
     public class RegisterViewModel
     {
         [Required]
-        [EmailAddress]
         [Display(Name = "Login ID")]
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 4)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
@@ -79,13 +77,12 @@ namespace ArthasPub.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
-        
+
     }
 
     public class ResetPasswordViewModel
     {
         [Required]
-        [EmailAddress]
         [Display(Name = "Login ID")]
         public string Email { get; set; }
 
@@ -106,7 +103,6 @@ namespace ArthasPub.Models
     public class ForgotPasswordViewModel
     {
         [Required]
-        [EmailAddress]
         [Display(Name = "Login ID")]
         public string Email { get; set; }
     }

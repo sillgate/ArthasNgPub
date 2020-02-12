@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -14,6 +15,8 @@ namespace ArthasPub.Models
         public decimal Cost { get; set; }
         public string ItemImageUrl { get; set; }
         public byte[] InternalImage { get; set; }
+        [NotMapped]
+        public HttpPostedFileBase Upload { get; set; }
         public bool Disable { get; set; }
     }
 }

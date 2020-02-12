@@ -195,21 +195,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202002100949451_removecartid.cs" />
-    <Compile Include="Migrations\202002100949451_removecartid.Designer.cs">
-      <DependentUpon>202002100949451_removecartid.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202002101549206_revamp.cs" />
-    <Compile Include="Migrations\202002101549206_revamp.Designer.cs">
-      <DependentUpon>202002101549206_revamp.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202002101627090_cancelorder.cs" />
-    <Compile Include="Migrations\202002101627090_cancelorder.Designer.cs">
-      <DependentUpon>202002101627090_cancelorder.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202002101648077_cancelorder1.cs" />
-    <Compile Include="Migrations\202002101648077_cancelorder1.Designer.cs">
-      <DependentUpon>202002101648077_cancelorder1.cs</DependentUpon>
+    <Compile Include="Migrations\202002120249070_schemee.cs" />
+    <Compile Include="Migrations\202002120249070_schemee.Designer.cs">
+      <DependentUpon>202002120249070_schemee.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -434,17 +422,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202002100949451_removecartid.resx">
-      <DependentUpon>202002100949451_removecartid.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202002101549206_revamp.resx">
-      <DependentUpon>202002101549206_revamp.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202002101627090_cancelorder.resx">
-      <DependentUpon>202002101627090_cancelorder.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202002101648077_cancelorder1.resx">
-      <DependentUpon>202002101648077_cancelorder1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202002120249070_schemee.resx">
+      <DependentUpon>202002120249070_schemee.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

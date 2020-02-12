@@ -152,7 +152,7 @@ namespace ArthasPub.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email};
+                var user = new ApplicationUser { UserName = model.Email, Email = null};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -179,7 +179,7 @@ namespace ArthasPub.Controllers
             }
 
             // If we got this far, something failed, redisplay form
-            return View(model);
+            return RedirectToAction("Index", "Home");
         }
         //Register admin function
         // GET: /Account/Register

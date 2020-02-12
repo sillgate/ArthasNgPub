@@ -20,13 +20,13 @@ namespace ArthasPub.Controllers
         // GET: Cart List
         public ActionResult Index()
         {
-            return View(userview());
+            return View(userorderview());
         }
 
         //GET: Checkout
         public ActionResult Checkout()
         {
-            return View(userview());
+            return View(userorderview());
         }
 
         //POST: Checkout
@@ -60,7 +60,7 @@ namespace ArthasPub.Controllers
                     }
                 }
             }
-            return Index(userview());
+            return Index(userorderview());
         }
 
         //Post: Change Quantity
@@ -74,10 +74,10 @@ namespace ArthasPub.Controllers
                     var c = db.CartItems.Where(a => a.CartItemId.Equals(i.CartItemId)).FirstOrDefault();
                     c.Quantity = i.Quantity;
                     db.SaveChanges();
-                    return View(userview());
+                    return View(userorderview());
                 }
             }
-            return View(userview());
+            return View(userorderview());
         }
 
         // GET: Item/Delete/5
@@ -114,7 +114,7 @@ namespace ArthasPub.Controllers
             base.Dispose(disposing);
         }
 
-        private List<CartItem> userview() 
+        private List<CartItem> userorderview() 
         {
             var c = db.CartItems.ToList().Where(i => i.UserId == User.Identity.GetUserId()).ToList();
                 return c;  
