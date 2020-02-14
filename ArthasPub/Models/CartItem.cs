@@ -16,6 +16,9 @@ namespace ArthasPub.Models
         public decimal Price { get; set; }
         public bool Cancel { get; set; }
 
+        [Display(Name = "Order Date")]
+        public DateTime OrderDate { get; set; }
+
         public virtual Item Item { get; set; }
         public virtual Order Order { get; set; }
         [StringLength(128)]
@@ -31,6 +34,13 @@ namespace ArthasPub.Models
             {
                 return Quantity * Price;
             }
+        }
+        public decimal Profit
+        {
+            get {
+                return (Price - Item.Cost) * Quantity;
+            }
+        
         }
 
     }

@@ -1,48 +1,5 @@
 ﻿@model IEnumerable<ArthasPub.Models.Item>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        * {
-            box-sizing: border-box;
-        }
 
-
-
-        /* Center website */
-        .main {
-            max-width: 1000px;
-            margin: auto;
-        }
-
-        h1 {
-            font-size: 50px;
-            word-break: break-all;
-        }
-
-        .row {
-            margin: 8px -16px;
-        }
-
-            /* Add padding BETWEEN each column */
-            .row,
-            .row > .column {
-                padding: 8px;
-            }
-
-        /* Create four equal columns that floats next to each other */
-        .column {
-            float: left;
-            width: 25%;
-        }
-
-        /* Clear floats after rows */
-        .row:after {
-            content: "";
-            display: table;
-            clear: both;
-        }
-    </style>
-</head>
 
 
 @{
@@ -53,36 +10,34 @@
         <h2>Stock List</h2>
 
         <p>
-            @Html.ActionLink("Create New", "Create")
+            @Html.ActionLink("Add Item", "Create", null, new { @class = "btn btn-primary", @style = "color:white", @role = "button" })
         </p>
 
 
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Description)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Price)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Cost)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ItemImageUrl)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.InternalImage)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Disable)
-                </th>
-                <th></th>
-            </tr>
-
+        <table class="table table-bordered table-hover table-responsive">
+            <thead>
+                <tr class="info">
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Price)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Cost)
+                    </th>
+                    <th>
+                        Image
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Disable)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
             @foreach (var item in Model)
             {
                 <tr>
@@ -95,30 +50,64 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Price)
                     </td>
+
                     <td>
                         @Html.DisplayFor(modelItem => item.Cost)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.ItemImageUrl)
-                    </td>
-                    <td>
-                        <img src='@Url.Action("show", "image", new { modelItem = item.InternalImage })' />
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Disable)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Add", "Add", new { id = item.ItemId }) |
-                        @Html.ActionLink("Edit", "Edit", new { id = item.ItemId }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.ItemId }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.ItemId })
-                    </td>
-                </tr>
-            }
+                        @if (item.ItemImageUrl != null)
+                        {
+                            <img src="@Url.Content(item.ItemImageUrl)" style="width:120px">}
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Disable)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ItemId })
+                </td>
+            </tr>
+        }
         </table>
     }
     else
     {
+
+        <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <style>
+                * {
+                    box-sizing: border-box;
+                }
+                /* Center website */
+                .main {
+                    max-width: 1000px;
+                    margin: auto;
+                }
+                h1 {
+                    font-size: 50px;
+                    word-break: break-all;
+                }
+                .row {
+                    margin: 8px -16px;
+                }
+                    /* Add padding BETWEEN each column */
+                    .row,
+                    .row > .column {
+                        padding: 8px;
+                    }
+                /* Create four equal columns that floats next to each other */
+                .column {
+                    float: left;
+                    width: 25%;
+                }
+                /* Clear floats after rows */
+                .row:after {
+                    content: "";
+                    display: table;
+                    clear: both;
+                }
+            </style>
+        </head>
         ViewBag.Title = "Menu";
 
         <div class="row">
@@ -127,9 +116,10 @@
                 <div class="column">
                     <div class="content">
                         <img src="@Url.Content(item.ItemImageUrl)" style="width:100%">
-                        <h3>@Html.DisplayFor(modelItem => item.Name)</h3>
-                        <p>$ @Html.DisplayFor(modelItem => item.Price)</p>
-                        <p>@Html.ActionLink("Order", "Add", new { id = item.ItemId }) </p>
+                        <h3 class="text">@Html.DisplayFor(modelItem => item.Name)</h3>
+                        <h5 class="text">@Html.DisplayFor(modelItem => item.Description)</h5>
+                        <h4 class="text-success">$ @Html.DisplayFor(modelItem => item.Price)</h4>
+                        <p>@Html.ActionLink("Order", "Add", new { id = item.ItemId },  new { @class = "btn btn-primary", @style = "color:white", @role = "button" } ) </p>
                     </div>
                 </div>
             }

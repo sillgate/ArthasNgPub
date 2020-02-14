@@ -44,21 +44,12 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ItemImageUrl)
+            Image
         </dt>
-
         <dd>
-            @Html.DisplayFor(model => model.ItemImageUrl)
+            <img src="@Url.Content(Model.ItemImageUrl)" style="width:120px">}
+
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.InternalImage)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.InternalImage)
-        </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.Disable)
         </dt>

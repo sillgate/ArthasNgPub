@@ -4,43 +4,86 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Sales Report</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            Name
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Total)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreateDate)
-        </th>
-    </tr>
+<table class="table table-responsive table-hover">
+    <thead>
+        <tr class="success">
+            <th></th>
+            <th>Customer</th>
+            <th>Order Total</th>
+            <th>Profit Total</th>
+            <th>Bill Date</th>
+        </tr>
+    </thead>
+    @foreach (var i in Model)
+    {
+        decimal profit = 0;
+        <tr>
+            <td>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.UserName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Total)
-        </td>
+                <a href="#" id="@i.OrderId">Detail</a>
+
+                <div id="toggle_text" style="display: none">
+                    <table class="table table-responsive table-condensed table-hover">
+                        <thead>
+                            <tr class="info">
+                                <th>Item</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Cost</th>
+                            </tr>
+                        </thead>
+                        @foreach (var cart in i.CartItems)
+                        {
+                            profit += cart.Profit;
+                            <tr>
+                                <td><img src="@Url.Content(cart.Item.ItemImageUrl)" style="width:50px">  @Html.DisplayFor(modelItem => cart.Item.Name)</td>
+                                <td>@Html.DisplayFor(modelItem => cart.Price) </td>
+                                <td>@Html.DisplayFor(modelItem => cart.Quantity) </td>
+                                <td>@Html.DisplayFor(modelItem => cart.Item.Cost)</td>
+
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </td>
+            <td> @Html.DisplayFor(modelItem => i.User.UserName)  </td>
+            <td> @Html.DisplayFor(modelItem => i.Total)  </td>
+            <td> @profit </td>
+            <td> @Html.DisplayFor(modelItem => i.CreateDate) </td>
+        </tr>
 
 
-        <td>
-            @Html.DisplayFor(modelItem => item.CreateDate)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.OrderId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.OrderId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.OrderId })
-        </td>
-    </tr>
-}
 
+
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script type="text/javascript">
+        $('#@i.OrderId').toggle(function () {
+
+            $('#@i.OrderId').text('Close');
+            $(this).closest("tr").after("<tr><td></td><td colspan = '999'>" + $(this).next().html() + "</td></tr>");
+
+        }, function () {
+
+            $('#@i.OrderId').text('Detail');
+            $(this).closest("tr").next().remove();
+
+        });
+        </script>
+    }
 </table>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    $('#toggle_icon').toggle(function () {
+
+        $('#toggle_icon').text('Close');
+        $(this).closest("tr").after("<tr><td></td><td colspan = '999'>" + $(this).next().html() + "</td></tr>");
+
+    }, function () {
+
+        $('#toggle_icon').text('Expand');
+        $(this).closest("tr").next().remove();
+
+    });
+</script>

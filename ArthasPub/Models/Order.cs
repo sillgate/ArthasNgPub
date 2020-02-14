@@ -17,6 +17,7 @@ namespace ArthasPub.Models
         public String UserId { get; set; }
         [ForeignKey("UserId")]
         public virtual ApplicationUser User { get; set; }
+        public ICollection<CartItem> CartItems { get; set; }
     }
 
 }

@@ -7,13 +7,13 @@ namespace ArthasPub.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class schemee : IMigrationMetadata
+    public sealed partial class chek : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(schemee));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(chek));
         
         string IMigrationMetadata.Id
         {
-            get { return "202002120249070_schemee"; }
+            get { return "202002121637335_chek"; }
         }
         
         string IMigrationMetadata.Source

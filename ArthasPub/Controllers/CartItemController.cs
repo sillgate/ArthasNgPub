@@ -20,13 +20,21 @@ namespace ArthasPub.Controllers
         // GET: Cart List
         public ActionResult Index()
         {
-            return View(userorderview());
+            if (User.IsInRole("Member"))
+            {
+                return View(userorderview());
+            }
+            if (User.IsInRole("Admin"))
+            {
+                return View(db.CartItems.Include(u => u.User).ToList());
+            }
+            return RedirectToRoute("Index");
         }
 
         //GET: Checkout
         public ActionResult Checkout()
         {
-            return View(userorderview());
+            return View(db.CartItems.ToList().Where(i => i.UserId == User.Identity.GetUserId()).Where(o => o.OrderId == null).Where(c => c.Cancel == false).ToList());
         }
 
         //POST: Checkout
@@ -44,10 +52,6 @@ namespace ArthasPub.Controllers
                 order.UserId = User.Identity.GetUserId();
                 order.CreateDate = System.DateTime.Now;
                 order.Total = t;
-                System.Diagnostics.Debug.WriteLine(t);
-                System.Diagnostics.Debug.WriteLine("hihi");
-                System.Diagnostics.Debug.WriteLine(order.OrderId);
-                System.Diagnostics.Debug.WriteLine(order.UserId);
                 db.Orders.Add(order);
                 db.SaveChanges();
                 foreach (var i in cart)
@@ -60,7 +64,7 @@ namespace ArthasPub.Controllers
                     }
                 }
             }
-            return Index(userorderview());
+            return RedirectToAction("Index","Item");
         }
 
         //Post: Change Quantity
@@ -114,10 +118,10 @@ namespace ArthasPub.Controllers
             base.Dispose(disposing);
         }
 
-        private List<CartItem> userorderview() 
+        private List<CartItem> userorderview()
         {
-            var c = db.CartItems.ToList().Where(i => i.UserId == User.Identity.GetUserId()).ToList();
-                return c;  
+            var c = db.CartItems.ToList().Where(i => i.UserId == User.Identity.GetUserId()).Where(o => o.OrderId == null).ToList();
+            return c;
         }
     }
 }

@@ -5,91 +5,253 @@
     ViewBag.Title = "Cart";
 }
 
-<h2>Ordered item:</h2>
-<h4>@User.Identity.GetUserName()</h4>
+<h2>Ordered item</h2>
+<h1 class="text-primary">
+    @User.Identity.GetUserName()
+</h1>
+@if (User.IsInRole("Admin"))
+{using (@Html.BeginForm())
+    {
+        decimal bill = 0;
+
+        <table class="table table-bordered table-hover table-responsive">
+            <thead>
+                <tr class="active">
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                    <th>
+                        Quantity
+                    </th>
+                    <th>
+                        Order Time
+                    </th>
+                    <th>
+                        Ordered By
+                    </th>
+                    <th>
+                        Total
+                    </th>
 
 
-@using (@Html.BeginForm())
-{
-    decimal bill = 0;
+                </tr>
+            </thead>
+            @for (var i = 0; i < Model.Count; i++)
+            {
 
-    <table class="table">
-        <tr>
-            <th></th>
-            <th>
-                Name
-            </th>
-            <th>
-                Price
-            </th>
-            <th>
-                Quantity
-            </th>
-            <th>
-                Total
-            </th>
-            <th></th>
-        </tr>
+                <tbody>
+                    @if (Model[i].Cancel == true)
+                    {
+                        <tr class="danger">
+                            <td>
+                                @Html.HiddenFor(modelItem => Model[i].CartItemId)
+                                <img src="@Url.Content(Model[i].Item.ItemImageUrl)" style="width:100px">
+                                @Html.HiddenFor(modelItem => Model[i].Item.Name)
+                                @Html.DisplayFor(modelItem => Model[i].Item.Name)
+                                @Html.HiddenFor(modelItem => Model[i].Item.Description)
+                            </td>
+                            <td>
+                                @Html.HiddenFor(modelItem => Model[i].Price)
+                                @Html.DisplayFor(modelItem => Model[i].Price)
+                            </td>
+                            <td>
+                                @Html.HiddenFor(modelItem => Model[i].Quantity)
+                                @Html.DisplayFor(modelItem => Model[i].Quantity)
+                            </td>
 
-        @for (var i = 0; i < Model.Count; i++)
-        {
-            bill += Model[i].Total;
-            <tr>
-                <td>
-                    <img src="data:image;base64,@System.Convert.ToBase64String(Model[i].Item.InternalImage)" style="width:125px" />
-                </td>
-                <td>
-                    @Html.HiddenFor(modelItem => Model[i].CartItemId)
-                    @Html.HiddenFor(modelItem => Model[i].Item.Name)
-                    @Html.DisplayFor(modelItem => Model[i].Item.Name)
-                </td>
-                <td>
-                    @Html.HiddenFor(modelItem => Model[i].Price)
-                    @Html.DisplayFor(modelItem => Model[i].Price)
-                </td>
-                <td>
-                    @Html.HiddenFor(modelItem => Model[i].Quantity)
-                    @Html.DisplayFor(modelItem => Model[i].Quantity)
-                </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => Model[i].OrderDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => Model[i].User.UserName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => Model[i].Total)
 
-                <td>
-                    @Html.DisplayFor(modelItem => Model[i].Total)
 
-                </td>
-                @if (Model[i].Cancel == false)
-                {
-            <td>
-                @Html.ActionLink("Cancel", "Cancel", new { id = Model[i].CartItemId }, new { @class = "btn btn-primary", @style = "color:white", @role = "button" })
-            </td>
-                }
-                @if (Model[i].Cancel == true)
-                {
+
+                                    <button class="btn btn-danger">Cancelled</button>
+
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        bill += Model[i].Total;
+                <tr>
                     <td>
-                        <button class="btn btn-danger">Cancelled</button>
+                        @Html.HiddenFor(modelItem => Model[i].CartItemId)
+                        <img src="@Url.Content(Model[i].Item.ItemImageUrl)" style="width:100px">
+                        @Html.HiddenFor(modelItem => Model[i].Item.Name)
+                        @Html.DisplayFor(modelItem => Model[i].Item.Name)
+                        @Html.HiddenFor(modelItem => Model[i].Item.Description)
                     </td>
-                }
+                    <td>
+                        @Html.HiddenFor(modelItem => Model[i].Price)
+                        @Html.DisplayFor(modelItem => Model[i].Price)
+                    </td>
+                    <td>
+                        @Html.HiddenFor(modelItem => Model[i].Quantity)
+                        @Html.DisplayFor(modelItem => Model[i].Quantity)
+                    </td>
 
-
-            </tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model[i].OrderDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model[i].User.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model[i].Total)
+                    </td>
+                </tr>
+                    }
+                </tbody>
+            }
+            <tfoot>
+                <tr>
+                    <td colspan="4"></td>
+                    <td>Sub Total:</td>
+                    <td>@bill</td>
+                </tr>
+            </tfoot>
+        </table>
+        <div class="form-actions no-color">
+            @Html.ActionLink("Checkout", "Checkout", null, new { @class = "btn btn-primary", @style = "color:white", @role = "button" })
+        </div>
+        @section Scripts{
+            @Scripts.Render("~/bundles/jqueryval")
         }
+    }}
 
+@if (User.IsInRole("Member"))
+{
+    using (@Html.BeginForm())
+    {
+        decimal bill = 0;
 
-        <tfoot>
-            <tr>
-                <td colspan="3"></td>
-                <td>Sub Total:</td>
-                <td>@bill</td>
+        <table class="table table-bordered table-hover table-responsive">
+            <thead>
+                <tr class="active">
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                    <th>
+                        Quantity
+                    </th>
+                    <th>
+                        Order Time
+                    </th>
+                    <th>
+                        Total
+                    </th>
 
-            </tr>
-        </tfoot>
+                </tr>
+            </thead>
+            @for (var i = 0; i < Model.Count; i++)
+            {
 
-    </table>
-    @*<div class="form-actions no-color">
-        @Html.ActionLink("Checkout", "Checkout", null, new { @class = "btn btn-primary", @style = "color:white", @role = "button" })
-        <input type="submit" value="Update" class="btn btn-default" />
-    </div>*@
+                <tbody>
+                    @if (Model[i].Cancel == true && User.IsInRole("Member"))
+                    {
+                        <tr class="danger">
+                            <td>
+                                @Html.HiddenFor(modelItem => Model[i].CartItemId)
+                                <img src="@Url.Content(Model[i].Item.ItemImageUrl)" style="width:100px">
+                                @Html.HiddenFor(modelItem => Model[i].Item.Name)
+                                @Html.DisplayFor(modelItem => Model[i].Item.Name)
+                                @Html.HiddenFor(modelItem => Model[i].Item.Description)
+                            </td>
+                            <td>
+                                @Html.HiddenFor(modelItem => Model[i].Price)
+                                @Html.DisplayFor(modelItem => Model[i].Price)
+                            </td>
+                            <td>
+                                @Html.HiddenFor(modelItem => Model[i].Quantity)
+                                @Html.DisplayFor(modelItem => Model[i].Quantity)
+                            </td>
 
-    @section Scripts{
-        @Scripts.Render("~/bundles/jqueryval")
+                            <td>
+                                @Html.DisplayFor(modelItem => Model[i].OrderDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => Model[i].Total)
+
+                                @if (Model[i].Cancel == false && User.IsInRole("Member"))
+                                {
+
+                                    @Html.ActionLink("Cancel", "Cancel", new { id = Model[i].CartItemId }, new { @class = "btn btn-primary", @style = "color:white", @role = "button" })
+
+                                }
+                                @if (Model[i].Cancel == true)
+                                {
+
+                                    <button class="btn btn-danger">Cancelled</button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        bill += Model[i].Total;
+                        <tr>
+                            <td>
+                                @Html.HiddenFor(modelItem => Model[i].CartItemId)
+                                <img src="@Url.Content(Model[i].Item.ItemImageUrl)" style="width:100px">
+                                @Html.HiddenFor(modelItem => Model[i].Item.Name)
+                                @Html.DisplayFor(modelItem => Model[i].Item.Name)
+                                @Html.HiddenFor(modelItem => Model[i].Item.Description)
+                            </td>
+                            <td>
+                                @Html.HiddenFor(modelItem => Model[i].Price)
+                                @Html.DisplayFor(modelItem => Model[i].Price)
+                            </td>
+                            <td>
+                                @Html.HiddenFor(modelItem => Model[i].Quantity)
+                                @Html.DisplayFor(modelItem => Model[i].Quantity)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => Model[i].OrderDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => Model[i].Total)
+
+                                @if (Model[i].Cancel == false && User.IsInRole("Member"))
+                                {
+
+                                    @Html.ActionLink("Cancel", "Cancel", new { id = Model[i].CartItemId }, new { @class = "btn btn-primary", @style = "color:white", @role = "button" })
+
+                                }
+                                @if (Model[i].Cancel == true)
+                                {
+
+                                    <button class="btn btn-danger">Cancelled</button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            }
+            <tfoot>
+                <tr>
+                    <td colspan="3"></td>
+                    <td>Sub Total:</td>
+                    <td>@bill</td>
+                </tr>
+            </tfoot>
+        </table>
+        <div class="form-actions no-color">
+            @Html.ActionLink("Checkout", "Checkout", null, new { @class = "btn btn-primary", @style = "color:white", @role = "button" })
+        </div>
+        @section Scripts{
+            @Scripts.Render("~/bundles/jqueryval")
+        }
     }
 }

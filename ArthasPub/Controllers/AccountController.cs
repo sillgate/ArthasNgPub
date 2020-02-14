@@ -173,13 +173,13 @@ namespace ArthasPub.Controllers
                     }
                     //Add user to role
                     await UserManager.AddToRoleAsync(user.Id, RoleName);
-                    return RedirectToAction("Index", "Home");
+                    return LogOff();
                 }
                 AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
-            return RedirectToAction("Index", "Home");
+            return (LogOff());
         }
         //Register admin function
         // GET: /Account/Register
