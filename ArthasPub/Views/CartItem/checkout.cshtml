@@ -44,7 +44,7 @@
                     <tr>
                         <td>
                             @Html.HiddenFor(modelItem => Model[i].CartItemId)
-                            <img src="@Url.Content(Model[i].Item.ItemImageUrl)" style="width:100px">
+                            <img src="@Url.Content(Model[i].Item.ItemImageUrl)" style="width:100px" alt="@Model[i].Item.Description">
                             @Html.HiddenFor(modelItem => Model[i].Item.Name)
                             @Html.DisplayFor(modelItem => Model[i].Item.Name)
                             @Html.HiddenFor(modelItem => Model[i].Item.Description)

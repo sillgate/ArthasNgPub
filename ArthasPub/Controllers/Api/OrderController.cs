@@ -1,39 +1,53 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Description;
+using ArthasPub.DAL;
+using ArthasPub.Models;
 
 namespace ArthasPub.Controllers.Api
 {
     public class OrderController : ApiController
     {
+        private ArthasPubDB db = new ArthasPubDB();
+
         // GET: api/Order
-        public IEnumerable<string> Get()
+        public IQueryable<Order> GetOrders()
         {
-            return new string[] { "value1", "value2" };
+            return db.Orders;
         }
 
         // GET: api/Order/5
-        public string Get(int id)
+        [ResponseType(typeof(Order))]
+        public IHttpActionResult GetOrder(int id)
         {
-            return "value";
+            Order Order = db.Orders.Find(id);
+            if (Order == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(Order);
         }
 
-        // POST: api/Order
-        public void Post([FromBody]string value)
+        protected override void Dispose(bool disposing)
         {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
 
-        // PUT: api/Order/5
-        public void Put(int id, [FromBody]string value)
+        private bool OrderExists(int id)
         {
-        }
-
-        // DELETE: api/Order/5
-        public void Delete(int id)
-        {
+            return db.Orders.Count(e => e.OrderId == id) > 0;
         }
     }
 }

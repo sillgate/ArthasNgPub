@@ -42,7 +42,7 @@
                             <tr>
                                 @if (cart.Item.ItemImageUrl != null)
                                 {
-                                    <td><img src="@Url.Content(cart.Item.ItemImageUrl)" style="width:50px">  @Html.DisplayFor(modelItem => cart.Item.Name)</td>
+                                    <td><img src="@Url.Content(cart.Item.ItemImageUrl)" style="width:50px" alt="@cart.Item.Description">  @Html.DisplayFor(modelItem => cart.Item.Name)</td>
                                 }
                                 else
                                 {

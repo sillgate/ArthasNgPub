@@ -57,7 +57,7 @@
                     <td>
                         @if (item.ItemImageUrl != null)
                         {
-                            <img src="@Url.Content(item.ItemImageUrl)" style="width:120px">}
+                            <img src="@Url.Content(item.ItemImageUrl)" style="width:120px" alt="@item.Description">}
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Disable)
@@ -110,13 +110,14 @@
         </head>
         ViewBag.Title = "Menu";
 
+        <h2>Menu for ArthasPub  </h2>
         <div class="row">
             @foreach (var item in Model)
             {
                 <div class="column">
                     <div class="content">
                         @if(item.ItemImageUrl != null){
-                        <img src="@Url.Content(item.ItemImageUrl)" style="width:100%">}
+                        <img src="@Url.Content(item.ItemImageUrl)" style="width:100%" alt="@item.Description">}
                         <h3 class="text">@Html.DisplayFor(modelItem => item.Name)</h3>
                         <h5 class="text">@Html.DisplayFor(modelItem => item.Description)</h5>
                         <h4 class="text-success">$ @Html.DisplayFor(modelItem => item.Price)</h4>

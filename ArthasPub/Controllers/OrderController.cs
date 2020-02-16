@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity;
 
 namespace ArthasPub.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class OrderController : Controller
     {
         private ArthasPubDB db = new ArthasPubDB();

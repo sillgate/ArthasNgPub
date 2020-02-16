@@ -8,12 +8,12 @@
 {
     <div class="container">
         <div class="col-sm-6">
-            <img src="@Url.Content(Model.ItemImageUrl)" style="width:250px">
+            <img src="@Url.Content(Model.ItemImageUrl)" style="width:250px" alt="@Model.Description">
             <p>Product Name: @Model.Name</p>
             <p>Price: EUR @Model.Price</p>
             <p>Description: @Model.Description</p>
 
-            <input type="number" name="qty" value="0" id="qty" class="form-control " />
+            <input type="number" name="qty" value="0" id="qty" class="form-control" />
             <p></p>
             <p></p>
             <p><input type="submit" value="Submit" class="btn btn-default" /></p>

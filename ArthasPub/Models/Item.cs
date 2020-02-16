@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
+using System.Runtime.Serialization;
 using System.Web;
+
 
 namespace ArthasPub.Models
 {
@@ -16,6 +15,8 @@ namespace ArthasPub.Models
         public decimal Cost { get; set; }
         public string ItemImageUrl { get; set; } = "~/Content/img/nophoto.png";
         [NotMapped]
+        [JsonIgnore]
+        [IgnoreDataMember]
         public HttpPostedFileBase Upload { get; set; }
         public bool Disable { get; set; }
     }

@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @if (Request.IsAuthenticated && User.IsInRole("Admin"))
     {
-        <title>@ViewBag.Title - Store Manager</title>
+        <title>@ViewBag.Title - StoreManager</title>
     }
     else
     {
-        <title>@ViewBag.Title - Welcome!</title>
+        <title>@ViewBag.Title - ArthasPub</title>
     }
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")

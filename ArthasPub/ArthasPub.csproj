@@ -419,6 +419,12 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="SQL\dbo.AspNetRoles.sql" />
+    <Content Include="SQL\dbo.AspNetUserRoles.sql" />
+    <Content Include="SQL\dbo.AspNetUsers.sql" />
+    <Content Include="SQL\dbo.CartItem.sql" />
+    <Content Include="SQL\dbo.Item.sql" />
+    <Content Include="SQL\dbo.Order.sql" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

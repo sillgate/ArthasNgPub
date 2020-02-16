@@ -1,0 +1,22 @@
+Reference URL:
+
+Youtube
+https://www.youtube.com/watch?v=4pH1VUjd33U
+
+GitHub repo
+https://github.com/sillgate/ArthasNgPub
+
+API middleware help page
+https://{NAMESPACE}/help
+
+Trello URL:  
+https://trello.com/b/anZENBaM/isad251-assignment-arthaspub
+
+Image Used:
+Beer: https://www.123rf.com/photo_85422903_stock-vector-vector-illustration-with-fresh-lager-beer-in-a-beer-mug-on-transparent-background-.html
+Red White : https://www.123rf.com/photo_75107651_stock-vector-vector-realistic-wineglass-with-red-wine-icon-isolated-on-transparent-background-design-template-in-.html
+White Wine : https://www.123rf.com/photo_75075278_stock-vector-vector-realistic-wineglass-with-white-wine-icon-isolated-on-transparent-background-design-template-i.html
+Fish and Chip : https://www.pngguru.com/free-transparent-background-png-clipart-nxwxr
+Burger : https://www.pexels.com/photo/beef-burger-burgers-cheeseburger-chips-2498915/
+Factsheet & Home/Index Background: https://wallpaperboat.com/bar-wallpapers
+Beer2: https://ya-webdesign.com/image/draft-beer-png/1809231.html

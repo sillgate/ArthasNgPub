@@ -97,8 +97,11 @@ namespace ArthasPub.Controllers.Api
              if (!ModelState.IsValid)
                  return BadRequest("Invalid data.");
 
-             using (var ctx = new ArthasPubDB())
+
+
+            using (var ctx = new ArthasPubDB())
              {
+                if(item != null) { 
                  ctx.Items.Add(new Item()
                  {
                      Name = item.Name,
@@ -108,9 +111,11 @@ namespace ArthasPub.Controllers.Api
                      ItemImageUrl = item.ItemImageUrl,
                      Disable = item.Disable
                  });
+                
+                ctx.SaveChanges();
+                }
+            }
 
-                 ctx.SaveChanges();
-             }
 
              return Ok();
          }
