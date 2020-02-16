@@ -106,7 +106,6 @@ namespace ArthasPub.Controllers.Api
                      Price = item.Price,
                      Cost = item.Cost,
                      ItemImageUrl = item.ItemImageUrl,
-                     InternalImage= item.InternalImage,
                      Disable = item.Disable
                  });
 

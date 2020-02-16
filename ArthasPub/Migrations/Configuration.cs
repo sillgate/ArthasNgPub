@@ -10,6 +10,7 @@ namespace ArthasPub.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            ContextKey = "ArthasPub.DAL.ArthasPubDB";
         }
 
         protected override void Seed(ArthasPub.DAL.ArthasPubDB context)

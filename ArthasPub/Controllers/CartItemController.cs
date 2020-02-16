@@ -12,18 +12,23 @@ using Microsoft.AspNet.Identity;
 
 namespace ArthasPub.Controllers
 {
+
     [Authorize(Roles = "Member, Admin")]
     public class CartItemController : Controller
     {
         private ArthasPubDB db = new ArthasPubDB();
 
-        // GET: Cart List
+
+        //Retrieve the Ordered item list
         public ActionResult Index()
         {
+            db.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+            //View for member to check the item they ordered
             if (User.IsInRole("Member"))
             {
-                return View(userorderview());
+                return View(customerview());
             }
+            //View for Admin to check the ordered item for all member
             if (User.IsInRole("Admin"))
             {
                 return View(db.CartItems.Include(u => u.User).ToList());
@@ -31,16 +36,20 @@ namespace ArthasPub.Controllers
             return RedirectToRoute("Index");
         }
 
-        //GET: Checkout
+        //Go to checkbill view for Member
+        [Authorize(Roles = "Member")]
         public ActionResult Checkout()
         {
+            db.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
             return View(db.CartItems.ToList().Where(i => i.UserId == User.Identity.GetUserId()).Where(o => o.OrderId == null).Where(c => c.Cancel == false).ToList());
         }
 
-        //POST: Checkout
+        //Commit the checkbill for Member
+        [Authorize(Roles = "Member")]
         [HttpPost]
         public ActionResult Checkout(List<CartItem> cart)
         {
+            db.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
             if (ModelState.IsValid)
             {
                 decimal t = 0;
@@ -63,28 +72,19 @@ namespace ArthasPub.Controllers
                         db.SaveChanges();
                     }
                 }
-            }
-            return RedirectToAction("Index","Item");
-        }
-
-        //Post: Change Quantity
-        [HttpPost]
-        public ActionResult Index(List<CartItem> cart)
-        {
-            if (ModelState.IsValid)
-            {
-                foreach (var i in cart)
+                //Clear cancel item after checkout completed
+                var cancelitem = db.CartItems.ToList().Where(i => i.UserId == User.Identity.GetUserId()).Where(c => c.Cancel == true).ToList();
+                foreach (var i in cancelitem)
                 {
-                    var c = db.CartItems.Where(a => a.CartItemId.Equals(i.CartItemId)).FirstOrDefault();
-                    c.Quantity = i.Quantity;
+                    db.CartItems.Remove(i);
                     db.SaveChanges();
-                    return View(userorderview());
                 }
+
             }
-            return View(userorderview());
+            return RedirectToAction("Index", "Item");
         }
 
-        // GET: Item/Delete/5
+        //Return Cancel View
         public ActionResult Cancel(int? id)
         {
             if (id == null)
@@ -99,7 +99,7 @@ namespace ArthasPub.Controllers
             return View(item);
         }
 
-        // POST: Item/Delete/5
+        // Perform Cancel
         [HttpPost, ActionName("Cancel")]
         public ActionResult Cancel(int id)
         {
@@ -109,19 +109,13 @@ namespace ArthasPub.Controllers
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
 
-        private List<CartItem> userorderview()
+        //Common function for calling customer view
+        private List<CartItem> customerview()
         {
-            var c = db.CartItems.ToList().Where(i => i.UserId == User.Identity.GetUserId()).Where(o => o.OrderId == null).ToList();
-            return c;
+            db.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+            var result = db.CartItems.ToList().Where(i => i.UserId == User.Identity.GetUserId()).Where(o => o.OrderId == null).ToList();
+            return result;
         }
     }
 }

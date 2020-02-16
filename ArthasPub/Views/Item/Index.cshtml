@@ -115,7 +115,8 @@
             {
                 <div class="column">
                     <div class="content">
-                        <img src="@Url.Content(item.ItemImageUrl)" style="width:100%">
+                        @if(item.ItemImageUrl != null){
+                        <img src="@Url.Content(item.ItemImageUrl)" style="width:100%">}
                         <h3 class="text">@Html.DisplayFor(modelItem => item.Name)</h3>
                         <h5 class="text">@Html.DisplayFor(modelItem => item.Description)</h5>
                         <h4 class="text-success">$ @Html.DisplayFor(modelItem => item.Price)</h4>

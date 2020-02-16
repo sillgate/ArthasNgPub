@@ -24,7 +24,7 @@ namespace ArthasPub.Models
         [StringLength(128)]
         public String UserId { get; set; }
 
-        [ForeignKey("UserId")]
+        //[ForeignKey("UserId")]
         public virtual ApplicationUser User { get; set; }
 
         [Display(Name = "Total")]

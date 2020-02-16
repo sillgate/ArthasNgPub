@@ -1,4 +1,4 @@
-﻿@model ArthasPub.Models.Item
+﻿    @model ArthasPub.Models.Item
 
 @{
     ViewBag.Title = "Create";
@@ -53,7 +53,6 @@
         <div class="col-md-10">
             @Html.HiddenFor(model => model.ItemImageUrl)
             @Html.TextBoxFor(model => model.Upload, new { type = "file" })
-            @Html.ValidationMessageFor(model => model.InternalImage, "", new { @class = "text-danger" })
         </div>
     </div>
 

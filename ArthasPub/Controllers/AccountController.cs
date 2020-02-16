@@ -173,7 +173,8 @@ namespace ArthasPub.Controllers
                     }
                     //Add user to role
                     await UserManager.AddToRoleAsync(user.Id, RoleName);
-                    return LogOff();
+                    AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+                    return RedirectToAction("Login", "Account");
                 }
                 AddErrors(result);
             }
@@ -220,7 +221,8 @@ namespace ArthasPub.Controllers
                     }
                     //Add user to role
                     await UserManager.AddToRoleAsync(user.Id, RoleName);
-                    return RedirectToAction("Index", "Home");
+                    AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+                    return RedirectToAction("Login", "Account");
                 }
                 AddErrors(result);
             }
@@ -449,7 +451,7 @@ namespace ArthasPub.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
 
         //
